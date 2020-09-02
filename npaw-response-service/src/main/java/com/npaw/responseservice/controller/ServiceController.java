@@ -1,10 +1,10 @@
 package com.npaw.responseservice.controller;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
+import org.apache.logging.log4j.core.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,31 +20,27 @@ public class ServiceController {
 	@Autowired
 	private AccountRepository accountRepository;
 
-	@GetMapping("/getData")
-	@ResponseBody
+	@GetMapping(value="/getData", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseBean getData(@RequestParam(required = false) String accountCode,
 			@RequestParam(required = false) String targetDevice, @RequestParam(required = false) String pluginVersion) throws Exception {
 		final ResponseBean responseBean = new ResponseBean();
 
 		try {
-			if (accountCode == null || targetDevice == null || pluginVersion == null) {
-				return null;
-			}
+
 			final TargetDevice targetDeviceEntity = accountRepository.findByAccountCode(accountCode).getTargetDevices()
 					.stream().filter(t -> t.getTargetDevice().equals(targetDevice)).findAny().orElseThrow(NullPointerException::new);
 
 			responseBean.setHost("SDD");
 			responseBean.setPingTime(String.valueOf(targetDeviceEntity.getPingTime()));
-			responseBean.setViewCode("SADSD");
-	        JAXBContext jaxbContext = JAXBContext.newInstance(ResponseBean.class);
-	        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-	        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-	       //jaxbMarshaller.marshal(responseBean, responseBean);
+			//Creating view code
+			responseBean.setViewCode(UuidUtil.getTimeBasedUuid().toString());
+			
+			//If we detect any null parameter, we will escape without response
 		} catch (NullPointerException nullException) {
 			return null;
 		}
 
 		return responseBean;
 	}
+	
 }
