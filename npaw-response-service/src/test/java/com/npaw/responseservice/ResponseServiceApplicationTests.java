@@ -1,10 +1,10 @@
-package com.npaw.servce.npawresponseservice;
+package com.npaw.responseservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NpawResponseServiceApplicationTests {
+class ResponseServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -75,6 +75,7 @@ public class ServiceController {
 			final Integer percentage = entry.getKey();
 			if (randomNumber <= percentage + sumPercentage) {
 				clusterName = entry.getValue();
+				break;
 			} else {
 				sumPercentage += percentage;
 			}
