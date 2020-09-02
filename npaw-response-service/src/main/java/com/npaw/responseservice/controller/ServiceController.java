@@ -1,5 +1,7 @@
 package com.npaw.responseservice.controller;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.logging.log4j.core.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +37,11 @@ public class ServiceController {
 			//Creating view code
 			responseBean.setViewCode(UuidUtil.getTimeBasedUuid().toString());
 			
-			//If we detect any null parameter, we will escape without response
+		//If we detect any null parameter or any non existing entity, we will escape without response
 		} catch (NullPointerException nullException) {
 			return null;
+		} catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		return responseBean;
