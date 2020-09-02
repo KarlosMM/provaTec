@@ -1,4 +1,9 @@
-For DB:
-JDBC Url: jdbc:h2:mem:testdb
-User: npaw
-Pass: npaw
+Use H2-Console for changes while running app:
+Url: http://localhost/h2-console
+
+Parameters:
+	JDBC Url: jdbc:h2:mem:testdb
+	User: npaw
+	Pass: npaw
+	
+*This changes will be deleted at the end of the running (spring.jpa.hibernate.ddl-auto=create-drop)
