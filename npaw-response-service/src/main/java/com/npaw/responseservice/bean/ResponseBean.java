@@ -10,7 +10,7 @@ public class ResponseBean {
 
 	private String host;
 
-	private String pingTime;
+	private Short pingTime;
 
 	private String viewCode;
 
@@ -23,12 +23,12 @@ public class ResponseBean {
 		this.host = host;
 	}
 
-	public String getPingTime() {
+	public Short getPingTime() {
 		return pingTime;
 	}
 
 	@XmlElement(name = "pt")
-	public void setPingTime(String pingTime) {
+	public void setPingTime(Short pingTime) {
 		this.pingTime = pingTime;
 	}
 
