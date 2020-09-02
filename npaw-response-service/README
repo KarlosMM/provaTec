@@ -1,0 +1,4 @@
+For DB:
+JDBC Url: jdbc:h2:mem:testdb
+User: npaw
+Pass: npaw
