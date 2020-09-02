@@ -7,3 +7,5 @@ Parameters:
 	Pass: npaw
 	
 *This changes will be deleted at the end of the running (spring.jpa.hibernate.ddl-auto=create-drop)
+
+Request template: http://localhost/getData?accountCode=clienteA&targetDevice=XBox&pluginVersion=3.3.1
