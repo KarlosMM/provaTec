@@ -1,10 +1,14 @@
 package com.npaw.responseservice.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class TargetDevice {
@@ -18,9 +22,14 @@ public class TargetDevice {
 
 	private String targetDevice;
 
-	private String pluginVersion;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PLUGIN_VERSION", nullable = false)
+	private Plugin plugin;
 
 	private Short pingTime;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "targetDevice")
+	private Set<TargetDeviceXCluster> targetDevicesXCluster = new HashSet<TargetDeviceXCluster>();
 
 	public Long getIdTargetDevice() {
 		return idTargetDevice;
@@ -46,12 +55,12 @@ public class TargetDevice {
 		this.targetDevice = targetDevice;
 	}
 
-	public String getPluginVersion() {
-		return pluginVersion;
+	public Plugin getPlugin() {
+		return plugin;
 	}
 
-	public void setPluginVersion(String pluginVersion) {
-		this.pluginVersion = pluginVersion;
+	public void setPlugin(Plugin plugin) {
+		this.plugin = plugin;
 	}
 
 	public Short getPingTime() {
@@ -60,6 +69,19 @@ public class TargetDevice {
 
 	public void setPingTime(Short pingTime) {
 		this.pingTime = pingTime;
+	}
+
+	public Set<TargetDeviceXCluster> getTargetDevicesXCluster() {
+		return targetDevicesXCluster;
+	}
+
+	public void setTargetDevicesXCluster(Set<TargetDeviceXCluster> targetDevicesXCluster) {
+		this.targetDevicesXCluster = targetDevicesXCluster;
+	}
+
+	@Override
+	public String toString() {
+		return "TargetDevice [targetDevice=" + targetDevice + "]";
 	}
 
 }

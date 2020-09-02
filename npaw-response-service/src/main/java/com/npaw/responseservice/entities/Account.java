@@ -43,4 +43,9 @@ public class Account {
 		this.targetDevices = targetDevices;
 	}
 
+	@Override
+	public String toString() {
+		return "Account [idAccount=" + idAccount + ", accountCode=" + accountCode + "]";
+	}
+
 }
